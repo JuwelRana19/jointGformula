@@ -133,3 +133,58 @@ For survival outcomes, `predict_joint_outcome()` returns:
 - `cumrisk`: cumulative incidence built from those hazards within subject over time
 
 Use `summarize_risk_trajectory()` to get the mean risk curve over time from `cumrisk`. The returned natural and intervention datasets keep only the active exposure columns used for prediction.
+
+## Bootstrap example and validation
+
+```r
+library(jointGformulaFull)
+library(data.table)
+
+# Build config
+cfg <- make_toronto_mixture_config()
+
+# Load and prepare data
+dat <- readRDS("NO2.RDS")
+dat <- as.data.table(dat)
+dat <- make_lags(dat, cfg)
+
+# Validate required columns and types
+validate_gformula_data(dat, cfg)
+
+# Bootstrap run
+boot_res <- bootstrap_joint_gformula(
+  data = dat,
+  config = cfg,
+  n_boot = 50,
+  mc_size = 1000,
+  seed = 1234,
+  parallel = FALSE,
+  verbose = TRUE
+)
+
+# Summarize bootstrap estimates
+boot_summary <- summarize_joint_bootstrap(boot_res)
+print(boot_summary)
+
+# Validate bootstrap quality
+boot_diag <- diagnose_joint_bootstrap(boot_res)
+print(boot_diag$bootstrap_summary)
+```
+
+For replicate-level structural checks, use audit mode:
+
+```r
+boot_res_audit <- bootstrap_joint_gformula(
+  data = dat,
+  config = cfg,
+  n_boot = 30,
+  mc_size = 1000,
+  seed = 1234,
+  audit_mode = TRUE,
+  verbose = TRUE
+)
+
+boot_diag_audit <- diagnose_joint_bootstrap(boot_res_audit, config = cfg)
+print(boot_diag_audit$bootstrap_summary)
+print(boot_diag_audit$audit_checks)
+```

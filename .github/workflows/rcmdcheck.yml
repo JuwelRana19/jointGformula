@@ -22,6 +22,11 @@ jobs:
         run: |
           Rscript -e "install.packages(c('future','future.apply','progressr'), repos='https://cloud.r-project.org', dependencies=TRUE)"
 
+      - name: Install rcmdcheck (required by check-r-package)
+        shell: bash
+        run: |
+          Rscript -e "install.packages('rcmdcheck', repos='https://cloud.r-project.org', dependencies=TRUE)"
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           args: ${{ env.R_CHECK_ARGS }}

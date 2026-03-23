@@ -17,15 +17,25 @@ jobs:
           r-version: "4.5"
           use-public-rspm: true
 
+      - name: Install system dependencies for svglite/textshaping/systemfonts
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            libfreetype6-dev \
+            libfontconfig1-dev \
+            libharfbuzz-dev \
+            libfribidi-dev
+
       - name: Install suggested packages
         shell: bash
         run: |
-          Rscript -e "install.packages(c('future','future.apply','progressr'), repos='https://cloud.r-project.org', dependencies=TRUE)"
+          Rscript -e "install.packages(c('future','future.apply','progressr'), dependencies=TRUE)"
 
       - name: Install rcmdcheck (required by check-r-package)
         shell: bash
         run: |
-          Rscript -e "install.packages('rcmdcheck', repos='https://cloud.r-project.org', dependencies=TRUE)"
+          Rscript -e "install.packages('rcmdcheck', dependencies=TRUE)"
 
       - uses: r-lib/actions/check-r-package@v2
         with:

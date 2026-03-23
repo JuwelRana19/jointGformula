@@ -29,10 +29,10 @@ jobs:
             libharfbuzz-dev \
             libfribidi-dev
 
-      - name: Install suggested packages
+      - name: Install package dependencies (Imports + Suggests)
         shell: bash
         run: |
-          Rscript -e "install.packages(c('future','future.apply','progressr'), dependencies=TRUE)"
+          Rscript -e "install.packages(c('data.table','speedglm','nnet','future','future.apply','progressr'), dependencies=TRUE)"
 
       - name: Install rcmdcheck (required by check-r-package)
         shell: bash

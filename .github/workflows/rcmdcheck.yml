@@ -8,7 +8,7 @@ jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
     env:
-      R_CHECK_ARGS: "--no-manual"
+      R_CHECK_ARGS: --no-manual
     steps:
       - uses: actions/checkout@v4
 

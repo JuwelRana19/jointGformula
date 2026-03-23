@@ -1,0 +1,8 @@
+# R package build/check artifacts
+*.tar.gz
+*.Rcheck/
+*.Rhistory
+*.Rproj.user/
+
+# R CMD check uses these
+jointGformulaFull.Rcheck/

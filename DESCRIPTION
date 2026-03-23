@@ -1,0 +1,15 @@
+Package: jointGformulaFull
+Type: Package
+Title: Full-Panel Joint Exposure G-Formula Tools
+Version: 0.1.0.9000
+Authors@R: person(given = "Juwel", family = "Rana", email = "juwel.rana@example.org", role = c("aut", "cre"))
+Description: Internal tools for config-driven parametric g-formula analyses
+    with multiple exposures, time-varying covariates, interventions, and
+    bootstrap estimation using a deterministic full-panel survival engine.
+License: file LICENSE
+Encoding: UTF-8
+Imports: data.table, speedglm, nnet
+Suggests: future, future.apply, progressr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+NeedsCompilation: no

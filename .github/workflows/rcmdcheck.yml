@@ -8,7 +8,9 @@ jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
     env:
-      R_CHECK_ARGS: --no-manual
+      # check-r-package injects this value into R code as: rcmdcheck(args = (<value>), ...)
+      # So we must include the quotes in the value itself.
+      R_CHECK_ARGS: "'--no-manual'"
     steps:
       - uses: actions/checkout@v4
 
